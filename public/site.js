@@ -5,7 +5,7 @@
 	const ul = document.querySelector('ul')
 
 	const getTodos = async () => {
-		const response = await fetch('/api/todos')
+		const response = await fetch(`/api/todos`)
 		const todos = await response.json()
 		return todos
 	}
@@ -21,7 +21,7 @@
 
 	const displayTodos = todos => {
 		ul.innerHTML = ''
-		todos.forEach(({ id, item, complete }) => {
+		todos.forEach(({ _id, item, complete }) => {
 			const li = document.createElement('li')
 			ul.appendChild(li)
 
@@ -33,7 +33,7 @@
 			checkbox.type = 'checkbox'
 			checkbox.checked = complete
 			checkbox.addEventListener('change', async () => {
-				await toggleTodo(id, checkbox.checked)
+				await toggleTodo(_id, checkbox.checked)
 				displayTodos(await getTodos())
 			})
 			li.appendChild(checkbox)
